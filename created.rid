@@ -1,0 +1,9 @@
+Sun, 23 Jun 2013 22:02:10 +0200
+lib/xz.rb	Sun, 23 Jun 2013 22:00:25 +0200
+lib/xz/lib_lzma.rb	Sun, 23 Jun 2013 22:00:25 +0200
+lib/xz/stream.rb	Sun, 23 Jun 2013 20:29:56 +0200
+lib/xz/stream_reader.rb	Sun, 23 Jun 2013 20:29:56 +0200
+lib/xz/stream_writer.rb	Sun, 23 Jun 2013 20:29:56 +0200
+HISTORY.rdoc	Sun, 23 Jun 2013 22:00:25 +0200
+README.rdoc	Sun, 23 Jun 2013 22:00:25 +0200
+COPYING	Sun, 23 Jun 2013 22:00:25 +0200
