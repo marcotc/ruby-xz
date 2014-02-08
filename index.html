@@ -1,177 +1,89 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" type="text/css" href="stylesheets/rdoc.css"/>
-    <script src="javascripts/jquery.js"></script>
-    <script src="javascripts/functions.js"></script>
-    <script src="javascripts/emerald.js"></script>
-    <title>README.rdoc</title>
-  </head>
-  <body>
-    <div id="sidebar">
-      <form id="search">
-        <p><input type="text" placeholder="Regexp Search"/></p>
-      </form>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-      <div id="indices">
-        <div class="index" id="file-index">
-          <div class="header">
-            <p>File Index</p>
-          </div>
+<title>ruby-xz RDocs</title>
 
-          <div class="list">
-            <ul>
-              
-                
-                
-                  
-                  <li class="code-file" style="display: none"><a href="COPYING.html">COPYING</a></li>
-                
-              
-                
-                
-                  <li class="rdoc-file"><a href="HISTORY_rdoc.html">HISTORY.rdoc</a></li>
-                
-              
-                
-                
-                  <li class="rdoc-file"><a href="README_rdoc.html">README.rdoc</a></li>
-                
-              
-                
-                
-                  
-                  <li class="code-file" style="display: none"><a href="lib/xz_rb.html">xz.rb</a></li>
-                
-              
-                
-                
-                  
-                  <li class="code-file" style="display: none"><a href="lib/xz/lib_lzma_rb.html">lib_lzma.rb</a></li>
-                
-              
-                
-                
-                  
-                  <li class="code-file" style="display: none"><a href="lib/xz/stream_rb.html">stream.rb</a></li>
-                
-              
-                
-                
-                  
-                  <li class="code-file" style="display: none"><a href="lib/xz/stream_reader_rb.html">stream_reader.rb</a></li>
-                
-              
-                
-                
-                  
-                  <li class="code-file" style="display: none"><a href="lib/xz/stream_writer_rb.html">stream_writer.rb</a></li>
-                
-              
-              <li><a style="font-style: italic" id="toggle-all-files" href="#">Show all</a></li>
-            </ul>
-          </div>
-        </div>
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
-        <div class="index" id="class-index">
-          <div class="header">
-            <p>Class Index</p>
-          </div>
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
 
-          <div class="list">
-            <ul>
-              
-                <li>
-                  <a href="XZ.html">XZ</a>
-                </li>
-              
-                <li>
-                  <a href="XZ/LZMAError.html">XZ::LZMAError</a>
-                </li>
-              
-                <li>
-                  <a href="XZ/LZMAStream.html">XZ::LZMAStream</a>
-                </li>
-              
-                <li>
-                  <a href="XZ/LibLZMA.html">XZ::LibLZMA</a>
-                </li>
-              
-                <li>
-                  <a href="XZ/Stream.html">XZ::Stream</a>
-                </li>
-              
-                <li>
-                  <a href="XZ/StreamReader.html">XZ::StreamReader</a>
-                </li>
-              
-                <li>
-                  <a href="XZ/StreamWriter.html">XZ::StreamWriter</a>
-                </li>
-              
-            </ul>
-          </div>
-        </div>
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
 
-        <div class="index" id="method-index">
-          <div class="header">
-            <p>Method Index</p>
-          </div>
 
-          <div class="list">
-            <ul>
-              
-                <li><a href="XZ.html#method-c-compress">::compress</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-compress_file">::compress_file</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-compress_stream">::compress_stream</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-decode_stream">::decode_stream</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-decompress">::decompress</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-decompress_file">::decompress_file</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-decompress_stream">::decompress_stream</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ.html#method-c-encode_stream">::encode_stream</a>&nbsp;<span class="method-classname">(XZ)</span></li>
-              
-                <li><a href="XZ/LZMAStream.html#method-c-new">::new</a>&nbsp;<span class="method-classname">(XZ::LZMAStream)</span></li>
-              
-                <li><a href="XZ/StreamWriter.html#method-c-new">::new</a>&nbsp;<span class="method-classname">(XZ::StreamWriter)</span></li>
-              
-                <li><a href="XZ/StreamReader.html#method-c-new">::new</a>&nbsp;<span class="method-classname">(XZ::StreamReader)</span></li>
-              
-                <li><a href="XZ/Stream.html#method-c-new">::new</a>&nbsp;<span class="method-classname">(XZ::Stream)</span></li>
-              
-                <li><a href="XZ/LZMAError.html#method-c-raise_if_necessary">::raise_if_necessary</a>&nbsp;<span class="method-classname">(XZ::LZMAError)</span></li>
-              
-                <li><a href="XZ/StreamReader.html#method-i-close">#close</a>&nbsp;<span class="method-classname">(XZ::StreamReader)</span></li>
-              
-                <li><a href="XZ/StreamWriter.html#method-i-close">#close</a>&nbsp;<span class="method-classname">(XZ::StreamWriter)</span></li>
-              
-                <li><a href="XZ/StreamReader.html#method-i-pos">#pos</a>&nbsp;<span class="method-classname">(XZ::StreamReader)</span></li>
-              
-                <li><a href="XZ/StreamWriter.html#method-i-pos">#pos</a>&nbsp;<span class="method-classname">(XZ::StreamWriter)</span></li>
-              
-                <li><a href="XZ/StreamReader.html#method-i-rewind">#rewind</a>&nbsp;<span class="method-classname">(XZ::StreamReader)</span></li>
-              
-                <li><a href="XZ/StreamReader.html#method-i-tell">#tell</a>&nbsp;<span class="method-classname">(XZ::StreamReader)</span></li>
-              
-                <li><a href="XZ/StreamWriter.html#method-i-tell">#tell</a>&nbsp;<span class="method-classname">(XZ::StreamWriter)</span></li>
-              
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+<body>
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
 
-    <div id="content">
-      <p id="documentation" class="toplevel-name">README.rdoc</p>
 
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="./HISTORY_rdoc.html">HISTORY</a>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./XZ.html">XZ</a>
+  
+    <li><a href="./XZ/LZMAError.html">XZ::LZMAError</a>
+  
+    <li><a href="./XZ/LZMAStream.html">XZ::LZMAStream</a>
+  
+    <li><a href="./XZ/LibLZMA.html">XZ::LibLZMA</a>
+  
+    <li><a href="./XZ/Stream.html">XZ::Stream</a>
+  
+    <li><a href="./XZ/StreamReader.html">XZ::StreamReader</a>
+  
+    <li><a href="./XZ/StreamWriter.html">XZ::StreamWriter</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
 
 <h1 id="label-ruby-xz">ruby-xz<span><a href="#label-ruby-xz">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
 
@@ -207,6 +119,9 @@ information on this.</p>
 should be able to find everything you need to use ruby-xz. As said,
 it&#39;s not big, but powerful: You can create and extract whole archive
 files, compress or decompress streams of data or just plain strings.</p>
+
+<p>You can read the documentation on your local gemserver, or online at <a
+href="http://quintus.github.io/ruby-xz">quintus.github.io/ruby-xz</a>/.</p>
 
 <h3 id="label-First+step">First step<span><a href="#label-First+step">&para;</a> <a href="#documentation">&uarr;</a></span></h3>
 
@@ -244,9 +159,9 @@ an in-depth description of what is possible.</p>
 
 <p>Basic liblzma-bindings for Ruby.</p>
 
-<p>Copyright © 2011-2013 Marvin Gülker</p>
+<p>Copyright © 2011-2013 Marvin Gülker et al.</p>
 
-<p>Copyright © 2011 Christoph Plank</p>
+<p>See AUTHORS for the full list of contributors.</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the ‘Software’),
@@ -265,28 +180,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.</p>
+</div>
 
 
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
 
-
-  <script type="text/javascript">
-    html = "<div class=\"toc\"><p>Contents</p>";
-    html += generate_toc();
-    html += "</div>";
-
-    $(html).insertAfter("h1");
-  </script>
-
-
-      <div id="footer">
-        <p style="width: 49%; float: left">Time: 2013-06-23 22:02:10 +0200</p>
-        <p style="width: 49%; float: right; text-align: right">
-          Generated by the
-          <a href="https://github.com/Quintus/emerald">Emerald generator for RDoc</a>.
-        </p>
-      </div>
-    </div>
-
-    <div class="clear"></div>
-  </body>
-</html>

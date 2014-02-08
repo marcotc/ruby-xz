@@ -1,9 +1,9 @@
-Sun, 23 Jun 2013 22:02:10 +0200
-lib/xz.rb	Sun, 23 Jun 2013 22:00:25 +0200
-lib/xz/lib_lzma.rb	Sun, 23 Jun 2013 22:00:25 +0200
-lib/xz/stream.rb	Sun, 23 Jun 2013 20:29:56 +0200
-lib/xz/stream_reader.rb	Sun, 23 Jun 2013 20:29:56 +0200
-lib/xz/stream_writer.rb	Sun, 23 Jun 2013 20:29:56 +0200
-HISTORY.rdoc	Sun, 23 Jun 2013 22:00:25 +0200
-README.rdoc	Sun, 23 Jun 2013 22:00:25 +0200
-COPYING	Sun, 23 Jun 2013 22:00:25 +0200
+Sat, 08 Feb 2014 18:22:53 +0100
+lib/xz.rb	Sat, 08 Feb 2014 18:21:11 +0100
+lib/xz/lib_lzma.rb	Sat, 08 Feb 2014 18:21:11 +0100
+lib/xz/stream.rb	Sat, 08 Feb 2014 18:21:11 +0100
+lib/xz/stream_reader.rb	Sat, 08 Feb 2014 18:21:11 +0100
+lib/xz/stream_writer.rb	Sat, 08 Feb 2014 18:21:11 +0100
+HISTORY.rdoc	Sat, 08 Feb 2014 18:21:11 +0100
+README.rdoc	Sat, 08 Feb 2014 18:21:11 +0100
+COPYING	Sat, 08 Feb 2014 18:21:11 +0100
