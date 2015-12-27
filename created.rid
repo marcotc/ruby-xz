@@ -1,9 +1,12 @@
-Sat, 08 Feb 2014 18:22:53 +0100
-lib/xz.rb	Sat, 08 Feb 2014 18:21:11 +0100
-lib/xz/lib_lzma.rb	Sat, 08 Feb 2014 18:21:11 +0100
-lib/xz/stream.rb	Sat, 08 Feb 2014 18:21:11 +0100
-lib/xz/stream_reader.rb	Sat, 08 Feb 2014 18:21:11 +0100
-lib/xz/stream_writer.rb	Sat, 08 Feb 2014 18:21:11 +0100
-HISTORY.rdoc	Sat, 08 Feb 2014 18:21:11 +0100
-README.rdoc	Sat, 08 Feb 2014 18:21:11 +0100
-COPYING	Sat, 08 Feb 2014 18:21:11 +0100
+Sun, 27 Dec 2015 10:47:31 +0100
+lib/xz.rb	Sun, 27 Dec 2015 10:44:37 +0100
+lib/xz/lib_lzma.rb	Sun, 27 Dec 2015 10:44:37 +0100
+lib/xz/stream.rb	Sun, 27 Dec 2015 10:44:37 +0100
+lib/xz/stream_reader.rb	Sun, 27 Dec 2015 10:44:37 +0100
+lib/xz/stream_writer.rb	Sun, 27 Dec 2015 10:44:37 +0100
+lib/xz/version.rb	Sun, 27 Dec 2015 10:44:37 +0100
+README.md	Sun, 27 Dec 2015 10:44:37 +0100
+HISTORY.rdoc	Sun, 27 Dec 2015 10:44:37 +0100
+pkg/ruby-xz-0.2.2/HISTORY.rdoc	Mon, 23 Nov 2015 16:08:59 +0100
+COPYING	Sun, 27 Dec 2015 10:44:37 +0100
+AUTHORS	Sun, 27 Dec 2015 10:44:37 +0100
