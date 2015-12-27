@@ -57,7 +57,17 @@
     
     
     
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-disable_deprecation_notices-3D">::disable_deprecation_notices=</a>
+    
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -113,6 +123,52 @@ this as compiled strings don’t come with encoding information.</p>
     
 
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-disable_deprecation_notices-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">disable_deprecation_notices=</span><span
+            class="method-args">(bool)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Force ruby-xz to be silent about deprecations. Using this is discouraged so
+that you are aware of upcoming changes to the API. However, if your
+standard error stream is closed, outputting the deprecation notices might
+result in an exception, so this method allows you to surpress these
+notices. Ensure you read the <a href="HISTORY_rdoc.html">HISTORY.rdoc</a>
+file carefully instead.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="disable_deprecation_notices-3D-source">
+            <pre><span class="ruby-comment"># File lib/xz.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">disable_deprecation_notices=</span>(<span class="ruby-identifier">bool</span>)
+  <span class="ruby-ivar">@disable_deprecation_notices</span> = <span class="ruby-identifier">bool</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
   </section>
 </main>
 
