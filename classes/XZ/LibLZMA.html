@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>XZ::LibLZMA</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>module</span>
+          XZ::LibLZMA
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../../files/lib/xz/lib_lzma_rb.html">lib/xz/lib_lzma.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../../files/lib/xz/stream_reader_rb.html">lib/xz/stream_reader.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../../files/lib/xz/stream_writer_rb.html">lib/xz/stream_writer.rb</a>
+          </li>
+          <li>
+            <a class='show' href='#' onclick='this.parentNode.parentNode.className += " expanded"; this.parentNode.removeChild(this); return false'>show all</a>
+          </li>
+        </ol>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <p>This module wraps functions and enums used by liblzma.</p>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='section'>
+            <div id='constants-list'>
+              <h2>Constants</h2>
+              <div class='name-list'>
+                <table summary='Constants'>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_ACTION</td>
+                    <td>=</td>
+                    <td class='context-item-value'>
+                      enum  :lzma_run, 0,
+                      :lzma_sync_flush,
+                      :lzma_full_flush,
+                      :lzma_finish
+                    </td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>Actions that can be passed to the lzma_code() function.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_CHECK</td>
+                    <td>=</td>
+                    <td class='context-item-value'>
+                      enum :lzma_check_none,   0,
+                      :lzma_check_crc32,  1,
+                      :lzma_check_crc64,  4,
+                      :lzma_check_sha256, 10
+                    </td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>Integrity check algorithms supported by liblzma.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_CONCATENATED</td>
+                    <td>=</td>
+                    <td class='context-item-value'>0x08</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_DECODE_FLAGS</td>
+                    <td>=</td>
+                    <td class='context-item-value'>
+                      {
+                      :tell_no_check          => LZMA_TELL_NO_CHECK,
+                      :tell_unsupported_check => LZMA_TELL_UNSUPPORTED_CHECK,
+                      :tell_any_check         => LZMA_TELL_ANY_CHECK,
+                      :concatenated           => LZMA_CONCATENATED
+                      }.freeze
+                    </td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>For access convenience of the above flags.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_PRESET_EXTREME</td>
+                    <td>=</td>
+                    <td class='context-item-value'>1 << 31</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>Activates extreme compression. Same as xz&#39;s “-e” commandline switch.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_RESERVED_ENUM</td>
+                    <td>=</td>
+                    <td class='context-item-value'>enum :lzma_reserved_enum, 0</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>Placeholder enum used by liblzma for later additions.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_RET</td>
+                    <td>=</td>
+                    <td class='context-item-value'>
+                      enum :lzma_ok, 0,
+                      :lzma_stream_end,
+                      :lzma_no_check,
+                      :lzma_unsupported_check,
+                      :lzma_get_check,
+                      :lzma_mem_error,
+                      :lzma_memlimit_error,
+                      :lzma_format_error,
+                      :lzma_options_error,
+                      :lzma_data_error,
+                      :lzma_buf_error,
+                      :lzma_prog_error
+                    </td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>Possible return values of liblzma functions.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_TELL_ANY_CHECK</td>
+                    <td>=</td>
+                    <td class='context-item-value'>0x04</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_TELL_NO_CHECK</td>
+                    <td>=</td>
+                    <td class='context-item-value'>0x02</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>LZMA_TELL_UNSUPPORTED_CHECK</td>
+                    <td>=</td>
+                    <td class='context-item-value'>0x02</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>UINT64_MAX</td>
+                    <td>=</td>
+                    <td class='context-item-value'>18446744073709551615</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>The maximum value of an uint64_t, as defined by liblzma. Should be the same
+                      as</p>
+                      
+                      <pre class="ruby">(<span class="ruby-value">2</span> <span class="ruby-operator">**</span> <span class="ruby-value">64</span>) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+                      </pre>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

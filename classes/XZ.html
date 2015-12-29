@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>XZ</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>module</span>
+          XZ
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../files/lib/xz_rb.html">lib/xz.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/xz/lib_lzma_rb.html">lib/xz/lib_lzma.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/xz/stream_rb.html">lib/xz/stream.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/xz/stream_reader_rb.html">lib/xz/stream_reader.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/xz/stream_writer_rb.html">lib/xz/stream_writer.rb</a>
+          </li>
+          <li class='other'>
+            <a target="docwin" href="../files/lib/xz/version_rb.html">lib/xz/version.rb</a>
+          </li>
+          <li>
+            <a class='show' href='#' onclick='this.parentNode.parentNode.className += " expanded"; this.parentNode.removeChild(this); return false'>show all</a>
+          </li>
+        </ol>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <p>The namespace and main module of this library. Each method of this module
+            may raise exceptions of class <a
+            href="XZ/LZMAError.html">XZ::LZMAError</a>, which is not named in the
+            methods&#39; documentations anymore.</p>
+            
+            <p>All strings you receive from any method defined in this module and the
+            classes defined in it are encoded in BINARY, so you may have to call
+            force_encoding on them to tag them with the correct encoding (assuming you
+            <em>know</em> what their correct encoding should be). ruby-xz can’t handle
+            this as compiled strings don’t come with encoding information.</p>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Class</h3>
+            <ol>
+              <li><a target="docwin" href="#method-c-compress">compress</a></li>
+              <li><a target="docwin" href="#method-c-compress_file">compress_file</a></li>
+              <li><a target="docwin" href="#method-c-compress_stream">compress_stream</a></li>
+              <li><a target="docwin" href="#method-c-decompress">decompress</a></li>
+              <li><a target="docwin" href="#method-c-decompress_file">decompress_file</a></li>
+              <li><a target="docwin" href="#method-c-decompress_stream">decompress_stream</a></li>
+              <li><a target="docwin" href="#method-c-disable_deprecation_notices-3D">disable_deprecation_notices=</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='class-list'>
+            <h2>Classes and Modules</h2>
+            <ol>
+              <li><a target="docwin" href="XZ/LibLZMA.html">XZ::LibLZMA</a></li>
+              <li><a target="docwin" href="XZ/LZMAError.html">XZ::LZMAError</a></li>
+              <li><a target="docwin" href="XZ/LZMAStream.html">XZ::LZMAStream</a></li>
+              <li><a target="docwin" href="XZ/Stream.html">XZ::Stream</a></li>
+              <li><a target="docwin" href="XZ/StreamReader.html">XZ::StreamReader</a></li>
+              <li><a target="docwin" href="XZ/StreamWriter.html">XZ::StreamWriter</a></li>
+            </ol>
+          </div>
+          <div id='section'>
+            <div id='constants-list'>
+              <h2>Constants</h2>
+              <div class='name-list'>
+                <table summary='Constants'>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>CHUNK_SIZE</td>
+                    <td>=</td>
+                    <td class='context-item-value'>4096</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>Number of bytes read in one chunk.</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>VERSION</td>
+                    <td>=</td>
+                    <td class='context-item-value'>"0.2.3".freeze</td>
+                    <td>&nbsp;</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>The version of this library.</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='aliases-list'>
+              <h2>Public Class Aliases</h2>
+              <div class='name-list'>
+                <table summary='Public Class Aliases'>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>decode_stream</td>
+                    <td>-&gt;</td>
+                    <td class='context-item-value'><a target="docwin" href="#method-c-decompress_stream">decompress_stream</a></td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>encode_stream</td>
+                    <td>-&gt;</td>
+                    <td class='context-item-value'><a target="docwin" href="#method-c-compress_stream">compress_stream</a></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='methods'>
+              <h2>Public Class methods</h2>
+              <div class='method public-class' id='method-method-c-compress'>
+                <a name='method-c-compress'></a>
+                <div class='synopsis'>
+                  <span class='name'>compress</span>
+                  <span class='arguments'>(str, compression_level = 6, check = :crc64, extreme = false)</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Compresses arbitrary data using the <a href="XZ.html">XZ</a> algorithm.</p>
+                  
+                  <h3 id="method-c-compress-label-Parameters">Parameters<span><a href="#method-c-compress-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>str</td><td>
+                  <p>The data to compress.</p>
+                  </td></tr></tbody></table>
+                  
+                  <p>For the other parameters, see the <a
+                  href="XZ.html#method-c-compress_stream">::compress_stream</a> method.</p>
+                  
+                  <h3 id="method-c-compress-label-Return+value">Return value<span><a href="#method-c-compress-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The compressed data as a BINARY-encoded string.</p>
+                  
+                  <h3 id="method-c-compress-label-Example">Example<span><a href="#method-c-compress-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">data</span> = <span class="ruby-string">&quot;I love Ruby&quot;</span>&#x000A;<span class="ruby-identifier">comp</span> = <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">compress</span>(<span class="ruby-identifier">data</span>) <span class="ruby-comment">#=&gt; binary blob</span></pre>
+                  
+                  <h3 id="method-c-compress-label-Remarks">Remarks<span><a href="#method-c-compress-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>Don&#39;t use this method for big amounts of data–you may run out of
+                  memory. Use <a href="XZ.html#method-c-compress_file">::compress_file</a> or
+                  <a href="XZ.html#method-c-compress_stream">::compress_stream</a> instead.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-compress-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-compress-source'><span class="ruby-comment"># File lib/xz.rb, line 299</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">compress</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">compression_level</span> = <span class="ruby-value">6</span>, <span class="ruby-identifier">check</span> = <span class="ruby-value">:crc64</span>, <span class="ruby-identifier">extreme</span> = <span class="ruby-keyword">false</span>)&#x000A;  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&quot;StringIO isn&#39;t available!&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-keyword">defined?</span> <span class="ruby-constant">StringIO</span>&#x000A;  <span class="ruby-identifier">s</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str</span>)&#x000A;  <span class="ruby-identifier">compress_stream</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">compression_level</span>, <span class="ruby-identifier">check</span>, <span class="ruby-identifier">extreme</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-compress_file'>
+                <a name='method-c-compress_file'></a>
+                <div class='synopsis'>
+                  <span class='name'>compress_file</span>
+                  <span class='arguments'>(in_file, out_file, compression_level = 6, check = :crc64, extreme = false)</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Compresses <code>in_file</code> and writes the result to
+                  <code>out_file</code>.</p>
+                  
+                  <h3 id="method-c-compress_file-label-Parameters">Parameters<span><a href="#method-c-compress_file-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>in_file</td><td>
+                  <p>The path to the file to read from.</p>
+                  </td></tr><tr><td class='label'>out_file</td><td>
+                  <p>The path of the file to write to. If it exists, it will be overwritten.</p>
+                  </td></tr></tbody></table>
+                  
+                  <p>For the other parameters, see the <a
+                  href="XZ.html#method-c-compress_stream">::compress_stream</a> method.</p>
+                  
+                  <h3 id="method-c-compress_file-label-Return+value">Return value<span><a href="#method-c-compress_file-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The number of bytes written, i.e. the size of the archive.</p>
+                  
+                  <h3 id="method-c-compress_file-label-Example">Example<span><a href="#method-c-compress_file-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-constant">XZ</span>.<span class="ruby-identifier">compress</span>(<span class="ruby-string">&quot;myfile.txt&quot;</span>, <span class="ruby-string">&quot;myfile.txt.xz&quot;</span>)&#x000A;<span class="ruby-constant">XZ</span>.<span class="ruby-identifier">compress</span>(<span class="ruby-string">&quot;myarchive.tar&quot;</span>, <span class="ruby-string">&quot;myarchive.tar.xz&quot;</span>)</pre>
+                  
+                  <h3 id="method-c-compress_file-label-Remarks">Remarks<span><a href="#method-c-compress_file-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>This method is safe to use with big files, because files are not loaded
+                  into memory completely at once.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-compress_file-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-compress_file-source'><span class="ruby-comment"># File lib/xz.rb, line 268</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">compress_file</span>(<span class="ruby-identifier">in_file</span>, <span class="ruby-identifier">out_file</span>, <span class="ruby-identifier">compression_level</span> = <span class="ruby-value">6</span>, <span class="ruby-identifier">check</span> = <span class="ruby-value">:crc64</span>, <span class="ruby-identifier">extreme</span> = <span class="ruby-keyword">false</span>)&#x000A;  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">in_file</span>, <span class="ruby-string">&quot;rb&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i_file</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">out_file</span>, <span class="ruby-string">&quot;wb&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">o_file</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">compress_stream</span>(<span class="ruby-identifier">i_file</span>, <span class="ruby-identifier">compression_level</span>, <span class="ruby-identifier">check</span>, <span class="ruby-identifier">extreme</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">chunk</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">o_file</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">chunk</span>)&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-compress_stream'>
+                <a name='method-c-compress_stream'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>compress_stream(io [, compression_level [, check [, extreme ] ] ] ) → a_string</div>
+                    <div>compress_stream(io [, compression_level [, check [, extreme ] ] ] ){|chunk| ... } → an_integer</div>
+                    <div>encode_stream(io [, compression_level [, check [, extreme ] ] ] ) → a_string</div>
+                    <div>encode_stream(io [, compression_level [, check [, extreme ] ] ] ){|chunk| ... } → an_integer</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Compresses a stream of data into XZ-compressed data.</p>
+                  
+                  <h3 id="method-c-compress_stream-label-Parameters">Parameters<span><a href="#method-c-compress_stream-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>io</td><td>
+                  <p>The IO to read the data from. Must be opened for reading.</p>
+                  </td></tr><tr><td class='label'>compression_level (6)</td><td>
+                  <p>Compression strength. Higher values indicate a smaller result, but longer
+                  compression time. Maximum is 9.</p>
+                  </td></tr><tr><td class='label'>check (:crc64)</td><td>
+                  <p>The checksum algorithm to use for verifying the data inside the archive.
+                  Possible values are:</p>
+                  <ul><li>
+                  <p>:none</p>
+                  </li><li>
+                  <p>:crc32</p>
+                  </li><li>
+                  <p>:crc64</p>
+                  </li><li>
+                  <p>:sha256</p>
+                  </li></ul>
+                  </td></tr><tr><td class='label'>extreme (false)</td><td>
+                  <p>Tries to get the last bit out of the compression. This may succeed, but you
+                  can end up with <strong>very</strong> long computation times.</p>
+                  </td></tr><tr><td class='label'>chunk (Block argument)</td><td>
+                  <p>One piece of compressed data.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h3 id="method-c-compress_stream-label-Return+value">Return value<span><a href="#method-c-compress_stream-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>If a block was given, returns the number of bytes written. Otherwise,
+                  returns the compressed data as a BINARY-encoded string.</p>
+                  
+                  <h3 id="method-c-compress_stream-label-Example">Example<span><a href="#method-c-compress_stream-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">data</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;file.txt&quot;</span>)&#x000A;<span class="ruby-identifier">i</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data</span>)&#x000A;<span class="ruby-constant">XZ</span>.<span class="ruby-identifier">compress_stream</span>(<span class="ruby-identifier">i</span>) <span class="ruby-comment">#=&gt; Some binary blob</span>&#x000A;&#x000A;<span class="ruby-identifier">i</span>.<span class="ruby-identifier">rewind</span>&#x000A;<span class="ruby-identifier">str</span> = <span class="ruby-string">&quot;&quot;</span>&#x000A;&#x000A;<span class="ruby-constant">XZ</span>.<span class="ruby-identifier">compress_stream</span>(<span class="ruby-identifier">i</span>, <span class="ruby-value">4</span>, :<span class="ruby-identifier">sha256</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>} <span class="ruby-comment">#=&gt; 123</span>&#x000A;<span class="ruby-identifier">str</span> <span class="ruby-comment">#=&gt; Some binary blob</span></pre>
+                  
+                  <h3 id="method-c-compress_stream-label-Remarks">Remarks<span><a href="#method-c-compress_stream-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The block form is <strong>much</strong> better on memory usage, because it
+                  doesn&#39;t have to load everything into RAM at once. If you don&#39;t know
+                  how big your data gets or if you want to compress much data, use the block
+                  form. Of course you shouldn&#39;t store the data your read in RAM then as
+                  in the example above.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-compress_stream-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-compress_stream-source'><span class="ruby-comment"># File lib/xz.rb, line 216</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">compress_stream</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">compression_level</span> = <span class="ruby-value">6</span>, <span class="ruby-identifier">check</span> = <span class="ruby-value">:crc64</span>, <span class="ruby-identifier">extreme</span> = <span class="ruby-keyword">false</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Invalid compression level!&quot;</span>) <span class="ruby-keyword">unless</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compression_level</span>)&#x000A;  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Invalid checksum specified!&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:none</span>, <span class="ruby-value">:crc32</span>, <span class="ruby-value">:crc64</span>, <span class="ruby-value">:sha256</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">check</span>)&#x000A;&#x000A;  <span class="ruby-identifier">compression_level</span> <span class="ruby-operator">|=</span> <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMA_PRESET_EXTREME</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">extreme</span>&#x000A;&#x000A;  <span class="ruby-identifier">stream</span> = <span class="ruby-constant">LZMAStream</span>.<span class="ruby-identifier">new</span>&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_easy_encoder</span>(<span class="ruby-identifier">stream</span>.<span class="ruby-identifier">pointer</span>,&#x000A;                                  <span class="ruby-identifier">compression_level</span>,&#x000A;                                  <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMA_CHECK</span>[<span class="ruby-value">:&quot;lzma_check_#{check}&quot;</span>])&#x000A;&#x000A;  <span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-string">&quot;&quot;</span>&#x000A;  <span class="ruby-identifier">res</span>.<span class="ruby-identifier">encode!</span>(<span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">BINARY</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-identifier">res</span> = <span class="ruby-identifier">lzma_code</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">stream</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">lzma_code</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">stream</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">chunk</span><span class="ruby-operator">|</span> <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">chunk</span>}&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_end</span>(<span class="ruby-identifier">stream</span>.<span class="ruby-identifier">pointer</span>)&#x000A;&#x000A;  <span class="ruby-identifier">block_given?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">stream</span>[<span class="ruby-value">:total_out</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">res</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-decompress'>
+                <a name='method-c-decompress'></a>
+                <div class='synopsis'>
+                  <span class='name'>decompress</span>
+                  <span class='arguments'>(str, memory_limit = LibLZMA::UINT64_MAX, flags = [:tell_unsupported_check])</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Decompresses data in <a href="XZ.html">XZ</a> format.</p>
+                  
+                  <h3 id="method-c-decompress-label-Parameters">Parameters<span><a href="#method-c-decompress-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>str</td><td>
+                  <p>The data to decompress.</p>
+                  </td></tr></tbody></table>
+                  
+                  <p>For the other parameters, see the <a
+                  href="XZ.html#method-c-decompress_stream">::decompress_stream</a> method.</p>
+                  
+                  <h3 id="method-c-decompress-label-Return+value">Return value<span><a href="#method-c-decompress-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The decompressed data as a BINARY-encoded string.</p>
+                  
+                  <h3 id="method-c-decompress-label-Example">Example<span><a href="#method-c-decompress-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">comp</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;data.xz&quot;</span>, <span class="ruby-string">&quot;rb&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>}&#x000A;<span class="ruby-identifier">data</span> = <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">decompress</span>(<span class="ruby-identifier">comp</span>) <span class="ruby-comment">#=&gt; &quot;I love Ruby&quot;</span></pre>
+                  
+                  <h3 id="method-c-decompress-label-Remarks">Remarks<span><a href="#method-c-decompress-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>Don&#39;t use this method for big amounts of data–you may run out of
+                  memory. Use <a
+                  href="XZ.html#method-c-decompress_file">::decompress_file</a> or <a
+                  href="XZ.html#method-c-decompress_stream">::decompress_stream</a> instead.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-decompress-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-decompress-source'><span class="ruby-comment"># File lib/xz.rb, line 326</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">decompress</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">memory_limit</span> = <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>, <span class="ruby-identifier">flags</span> = [<span class="ruby-value">:tell_unsupported_check</span>])&#x000A;  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">NotImplementedError</span>, <span class="ruby-string">&quot;StringIO isn&#39;t available!&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-keyword">defined?</span> <span class="ruby-constant">StringIO</span>&#x000A;  <span class="ruby-identifier">s</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str</span>)&#x000A;  <span class="ruby-identifier">decompress_stream</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">memory_limit</span>, <span class="ruby-identifier">flags</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-decompress_file'>
+                <a name='method-c-decompress_file'></a>
+                <div class='synopsis'>
+                  <span class='name'>decompress_file</span>
+                  <span class='arguments'>(in_file, out_file, memory_limit = LibLZMA::UINT64_MAX, flags = [:tell_unsupported_check])</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Decompresses <code>in_file</code> and writes the result to
+                  <code>out_file</code>.</p>
+                  
+                  <h3 id="method-c-decompress_file-label-Parameters">Parameters<span><a href="#method-c-decompress_file-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>in_file</td><td>
+                  <p>The path to the file to read from.</p>
+                  </td></tr><tr><td class='label'>out_file</td><td>
+                  <p>The path of the file to write to. If it exists, it will be overwritten.</p>
+                  </td></tr></tbody></table>
+                  
+                  <p>For the other parameters, see the <a
+                  href="XZ.html#method-c-decompress_stream">::decompress_stream</a> method.</p>
+                  
+                  <h3 id="method-c-decompress_file-label-Return+value">Return value<span><a href="#method-c-decompress_file-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The number of bytes written, i.e. the size of the uncompressed data.</p>
+                  
+                  <h3 id="method-c-decompress_file-label-Example">Example<span><a href="#method-c-decompress_file-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-constant">XZ</span>.<span class="ruby-identifier">decompres</span>(<span class="ruby-string">&quot;myfile.txt.xz&quot;</span>, <span class="ruby-string">&quot;myfile.txt&quot;</span>)&#x000A;<span class="ruby-constant">XZ</span>.<span class="ruby-identifier">decompress</span>(<span class="ruby-string">&quot;myarchive.tar.xz&quot;</span>, <span class="ruby-string">&quot;myarchive.tar&quot;</span>)</pre>
+                  
+                  <h3 id="method-c-decompress_file-label-Remarks">Remarks<span><a href="#method-c-decompress_file-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>This method is safe to use with big files, because files are not loaded
+                  into memory completely at once.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-decompress_file-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-decompress_file-source'><span class="ruby-comment"># File lib/xz.rb, line 358</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">decompress_file</span>(<span class="ruby-identifier">in_file</span>, <span class="ruby-identifier">out_file</span>, <span class="ruby-identifier">memory_limit</span> = <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>, <span class="ruby-identifier">flags</span> = [<span class="ruby-value">:tell_unsupported_check</span>])&#x000A;  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">in_file</span>, <span class="ruby-string">&quot;rb&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i_file</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">out_file</span>, <span class="ruby-string">&quot;wb&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">o_file</span><span class="ruby-operator">|</span>&#x000A;      <span class="ruby-identifier">decompress_stream</span>(<span class="ruby-identifier">i_file</span>, <span class="ruby-identifier">memory_limit</span>, <span class="ruby-identifier">flags</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">chunk</span><span class="ruby-operator">|</span>&#x000A;        <span class="ruby-identifier">o_file</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">chunk</span>)&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-decompress_stream'>
+                <a name='method-c-decompress_stream'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>decompress_stream(io [, memory_limit [, flags ] ] )               → a_string</div>
+                    <div>decompress_stream(io [, memory_limit [, flags ] ] ){|chunk| ... } → an_integer</div>
+                    <div>decode_stream(io [, memory_limit [, flags ] ] )                   → a_string</div>
+                    <div>decode_stream(io [, memory_limit [, flags ] ] ){|chunk| ... }     → an_integer</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Decompresses a stream containing XZ-compressed data.</p>
+                  
+                  <h3 id="method-c-decompress_stream-label-Parameters">Parameters<span><a href="#method-c-decompress_stream-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>io</td><td>
+                  <p>The IO to read from. It must be opened for reading.</p>
+                  </td></tr><tr><td class='label'>memory_limit (UINT64_MAX)</td><td>
+                  <p>If not XZ::LibLZMA::UINT64_MAX, makes liblzma use no more memory than
+                  <code>memory_limit</code> bytes.</p>
+                  </td></tr><tr><td class='label'>flags ([:tell_unsupported_check])</td><td>
+                  <p>Additional flags passed to liblzma (an array). Possible flags are:</p>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>:tell_no_check</td><td>
+                  <p>Spit out a warning if the archive hasn&#39;t an integrity checksum.</p>
+                  </td></tr><tr><td class='label'>:tell_unsupported_check</td><td>
+                  <p>Spit out a warning if the archive has an unsupported checksum type.</p>
+                  </td></tr><tr><td class='label'>:concatenated</td><td>
+                  <p>Decompress concatenated archives.</p>
+                  </td></tr></tbody></table>
+                  </td></tr><tr><td class='label'>chunk (Block argument)</td><td>
+                  <p>One piece of decompressed data.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h3 id="method-c-decompress_stream-label-Return+value">Return value<span><a href="#method-c-decompress_stream-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>If a block was given, returns the number of bytes written. Otherwise,
+                  returns the decompressed data as a BINARY-encoded string.</p>
+                  
+                  <h3 id="method-c-decompress_stream-label-Example">Example<span><a href="#method-c-decompress_stream-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">data</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;archive.xz&quot;</span>, <span class="ruby-string">&quot;rb&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>}&#x000A;<span class="ruby-identifier">io</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data</span>)&#x000A;&#x000A;<span class="ruby-constant">XZ</span>.<span class="ruby-identifier">decompress_stream</span>(<span class="ruby-identifier">io</span>) <span class="ruby-comment">#=&gt; &quot;I AM THE DATA&quot;</span>&#x000A;<span class="ruby-identifier">io</span>.<span class="ruby-identifier">rewind</span>&#x000A;&#x000A;<span class="ruby-identifier">str</span> = <span class="ruby-string">&quot;&quot;</span>&#x000A;<span class="ruby-constant">XZ</span>.<span class="ruby-identifier">decompress_stream</span>(<span class="ruby-identifier">io</span>, <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>, [:<span class="ruby-identifier">tell_no_check</span>]){<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>} <span class="ruby-comment">#=&gt; 13</span>&#x000A;<span class="ruby-identifier">str</span> <span class="ruby-comment">#=&gt; &quot;I AM THE DATA&quot;</span></pre>
+                  
+                  <h3 id="method-c-decompress_stream-label-Remarks">Remarks<span><a href="#method-c-decompress_stream-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The block form is <strong>much</strong> better on memory usage, because it
+                  doesn&#39;t have to load everything into RAM at once. If you don&#39;t know
+                  how big your data gets or if you want to decompress much data, use the
+                  block form. Of course you shouldn&#39;t store the data you read in RAM then
+                  as in the example above.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-decompress_stream-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-decompress_stream-source'><span class="ruby-comment"># File lib/xz.rb, line 127</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">decompress_stream</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">memory_limit</span> = <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>, <span class="ruby-identifier">flags</span> = [<span class="ruby-value">:tell_unsupported_check</span>], <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Invalid memory limit set!&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">memory_limit</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">memory_limit</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>&#x000A;&#x000A;  <span class="ruby-comment"># bit-or all flags</span>&#x000A;  <span class="ruby-identifier">allflags</span> = <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span>, <span class="ruby-identifier">flag</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">flag</span> = <span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMA_DECODE_FLAGS</span>[<span class="ruby-identifier">flag</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unknown flag #{flag}!&quot;</span>)&#x000A;    <span class="ruby-identifier">val</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">flag</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">stream</span> = <span class="ruby-constant">LZMAStream</span>.<span class="ruby-identifier">new</span>&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_stream_decoder</span>(<span class="ruby-identifier">stream</span>.<span class="ruby-identifier">pointer</span>,&#x000A;                                    <span class="ruby-identifier">memory_limit</span>,&#x000A;                                    <span class="ruby-identifier">allflags</span>)&#x000A;&#x000A;  <span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-string">&quot;&quot;</span>&#x000A;  <span class="ruby-identifier">res</span>.<span class="ruby-identifier">encode!</span>(<span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">BINARY</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-identifier">res</span> = <span class="ruby-identifier">lzma_code</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">stream</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-identifier">lzma_code</span>(<span class="ruby-identifier">io</span>, <span class="ruby-identifier">stream</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">chunk</span><span class="ruby-operator">|</span> <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">chunk</span>}&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_end</span>(<span class="ruby-identifier">stream</span>.<span class="ruby-identifier">pointer</span>)&#x000A;&#x000A;  <span class="ruby-identifier">block_given?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">stream</span>[<span class="ruby-value">:total_out</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">res</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-disable_deprecation_notices-3D'>
+                <a name='method-c-disable_deprecation_notices-3D'></a>
+                <div class='synopsis'>
+                  <span class='name'>disable_deprecation_notices=</span>
+                  <span class='arguments'>(bool)</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Force ruby-xz to be silent about deprecations. Using this is discouraged so
+                  that you are aware of upcoming changes to the API. However, if your
+                  standard error stream is closed, outputting the deprecation notices might
+                  result in an exception, so this method allows you to surpress these
+                  notices. Ensure you read the <a
+                  href="../files/HISTORY_rdoc.html">HISTORY.rdoc</a> file carefully instead.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-disable_deprecation_notices-3D-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-disable_deprecation_notices-3D-source'><span class="ruby-comment"># File lib/xz.rb, line 56</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">disable_deprecation_notices=</span>(<span class="ruby-identifier">bool</span>)&#x000A;  <span class="ruby-ivar">@disable_deprecation_notices</span> = <span class="ruby-identifier">bool</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>XZ::StreamReader</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>class</span>
+          XZ::StreamReader
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../../files/lib/xz/stream_reader_rb.html">lib/xz/stream_reader.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Superclass:
+          <strong><a target="docwin" href="Stream.html">Stream</a></strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <p>An IO-like reader class for XZ-compressed data, allowing you to access
+            XZ-compressed data as if it was a normal IO object, but please note you
+            can’t seek in the data–this doesn’t make much sense anyway. Where would you
+            want to seek? The plain or the <a href="../XZ.html">XZ</a> data?</p>
+            
+            <p>A <a href="StreamReader.html">StreamReader</a> object actually wraps
+            another IO object it reads the compressed data from; you can either pass
+            this IO object directly to the <a
+            href="StreamReader.html#method-c-new">::new</a> method, effectively
+            allowing you to pass any IO-like thing you can imagine (just ensure it is
+            readable), or you can pass a path to a filename to <a
+            href="StreamReader.html#method-c-open">::open</a>, in which case <a
+            href="StreamReader.html">StreamReader</a> takes care of both opening and
+            closing the file correctly. You can even take it one step further and use
+            the block form of <a href="StreamReader.html#method-c-new">::new</a> and <a
+            href="StreamReader.html#method-c-open">::open</a>, which will automatically
+            call the <a href="StreamReader.html#method-i-close">close</a> method for
+            you after the block finished. However, if you pass an IO, remember you have
+            to close:</p>
+            <ol><li>
+            <p>The <a href="StreamReader.html">StreamReader</a> instance.</p>
+            </li><li>
+            <p>The IO object you passed to <a
+            href="StreamReader.html#method-c-new">::new</a>.</p>
+            </li></ol>
+            
+            <p>Do it <strong>in exactly that order</strong>, otherwise you may lose data.</p>
+            
+            <p><strong>WARNING</strong>: The closing behaviour described above is subject
+            to change in the next major version. In the future, wrapped IO objects are
+            automatically closed always, regardless of whether you passed a filename or
+            an IO instance. This is to sync the API with Ruby’s own Zlib::GzipReader.
+            To prevent that, call <a
+            href="StreamReader.html#method-i-finish">finish</a> instead of <a
+            href="StreamReader.html#method-i-close">close</a>.</p>
+            
+            <p>See the <code>io-like</code> gem’s documentation for the IO-reading methods
+            available for this class (although you’re probably familiar with them
+            through Ruby’s own IO class ;-)).</p>
+            
+            <h2 id="class-XZ::StreamReader-label-Example">Example<span><a href="#class-XZ::StreamReader-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h2>
+            
+            <p>In this example, we’re going to use ruby-xz together with the
+            <code>archive-tar-minitar</code> gem that allows to read tarballs. Used
+            together, the two libraries allow us to read XZ-compressed tarballs.</p>
+            
+            <pre class="ruby"><span class="ruby-identifier">require</span> <span class="ruby-string">&quot;xz&quot;</span>&#x000A;<span class="ruby-identifier">require</span> <span class="ruby-string">&quot;archive/tar/minitar&quot;</span>&#x000A;&#x000A;<span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.tar.xz&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">txz</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-comment"># This automatically closes txz</span>&#x000A;  <span class="ruby-constant">Archive</span><span class="ruby-operator">::</span><span class="ruby-constant">Tar</span><span class="ruby-operator">::</span><span class="ruby-constant">Minitar</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-identifier">txz</span>, <span class="ruby-string">&quot;foo&quot;</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Class</h3>
+            <ol>
+              <li><a target="docwin" href="#method-c-new">new</a></li>
+              <li><a target="docwin" href="#method-c-open">open</a></li>
+            </ol>
+            <h3>Public Instance</h3>
+            <ol>
+              <li><a target="docwin" href="#method-i-close">close</a></li>
+              <li><a target="docwin" href="#method-i-finish">finish</a></li>
+              <li><a target="docwin" href="#attribute-i-flags">flags</a></li>
+              <li><a target="docwin" href="#attribute-i-memory_limit">memory_limit</a></li>
+              <li><a target="docwin" href="#method-i-pos">pos</a></li>
+              <li><a target="docwin" href="#method-i-rewind">rewind</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='section'>
+            <div id='aliases-list'>
+              <h2>Public Instance Aliases</h2>
+              <div class='name-list'>
+                <table summary='Public Instance Aliases'>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>tell</td>
+                    <td>-&gt;</td>
+                    <td class='context-item-value'><a target="docwin" href="#method-i-pos">pos</a></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='attribute-list'>
+              <h2 class='section-bar'>Attributes</h2>
+              <div class='name-list'>
+                <table>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-flags'>flags</a>
+                    </td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>The flags you set for this reader (in <a
+                      href="StreamReader.html#method-c-new">::new</a>).</p>
+                    </td>
+                  </tr>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>
+                      <a name='attribute-i-memory_limit'>memory_limit</a>
+                    </td>
+                    <td class='context-item-value'>[R]</td>
+                    <td class='context-item-desc'>
+                      
+                      <p>The memory limit you set for this reader (in <a
+                      href="StreamReader.html#method-c-new">::new</a>).</p>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='methods'>
+              <h2>Public Class methods</h2>
+              <div class='method public-class' id='method-method-c-new'>
+                <a name='method-c-new'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>new(delegate, opts = {}) → reader</div>
+                    <div>new(delegate, opts = {}){|reader| …} → obj</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Creates a new <a href="StreamReader.html">StreamReader</a> instance. If you
+                  pass an IO, remember you have to close <strong>both</strong> the resulting
+                  instance (via the <a href="StreamReader.html#method-i-close">close</a>
+                  method) and the IO object you pass to flush any internal buffers in order
+                  to be able to read all decompressed data (beware Deprecations section
+                  below).</p>
+                  
+                  <h3 id="method-c-new-label-Parameters">Parameters<span><a href="#method-c-new-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>delegate</td><td>
+                  <p>An IO object to read the data from, If you’re in an urgent need to pass a
+                  plain string, use StringIO from Ruby’s standard library. If this is an IO,
+                  it must be opened for reading.</p>
+                  </td></tr><tr><td class='label'>opts</td><td>
+                  <p>Options hash accepting these parameters (defaults indicated in
+                  parantheses):</p>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>:memory_limit (LibLZMA::UINT64_MAX)</td><td>
+                  <p>If not XZ::LibLZMA::UINT64_MAX, makes liblzma use no more memory than this
+                  amount of bytes.</p>
+                  </td></tr><tr><td class='label'>:flags ([:tell_unsupported_check])</td><td>
+                  <p>Additional flags passed to libzlma (an array). Possible flags are:</p>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>:tell_no_check</td><td>
+                  <p>Spit out a warning if the archive hasn’t an integrity checksum.</p>
+                  </td></tr><tr><td class='label'>:tell_unsupported_check</td><td>
+                  <p>Spit out a warning if the archive has an unsupported checksum type.</p>
+                  </td></tr><tr><td class='label'>:concatenated</td><td>
+                  <p>Decompress concatenated archives.</p>
+                  </td></tr></tbody></table>
+                  </td></tr></tbody></table>
+                  </td></tr><tr><td class='label'>reader</td><td>
+                  <p>Block argument. self of the new instance.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h3 id="method-c-new-label-Return+value">Return value<span><a href="#method-c-new-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The block form returns the block’s last expression, the nonblock form
+                  returns the newly created instance.</p>
+                  
+                  <h3 id="method-c-new-label-Deprecations">Deprecations<span><a href="#method-c-new-label-Deprecations">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The old API for this method as it was documented in version 0.2.1 still
+                  works, but is deprecated. Please change to the new API as soon as possible.</p>
+                  
+                  <p><strong>WARNING</strong>: The closing behaviour of the block form is
+                  subject to upcoming change. In the next major release the wrapped IO
+                  <strong>will</strong> be automatically closed, unless you call <a
+                  href="StreamReader.html#method-i-finish">finish</a>.</p>
+                  
+                  <h3 id="method-c-new-label-Example">Example<span><a href="#method-c-new-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-comment"># Wrap it around a file</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.xz&quot;</span>)&#x000A;<span class="ruby-identifier">r</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>)&#x000A;&#x000A;<span class="ruby-comment"># Ignore any XZ checksums (may result in invalid</span>&#x000A;<span class="ruby-comment"># data being read!)</span>&#x000A;<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.xz&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-identifier">r</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>, :<span class="ruby-identifier">flags</span> =<span class="ruby-operator">&gt;</span> [:<span class="ruby-identifier">tell_no_check</span>])&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-new-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-new-source'><span class="ruby-comment"># File lib/xz/stream_reader.rb, line 147</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">delegate</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">delegate</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_io</span>)&#x000A;    <span class="ruby-comment"># Correct use with IO</span>&#x000A;    <span class="ruby-keyword">super</span>(<span class="ruby-identifier">delegate</span>.<span class="ruby-identifier">to_io</span>)&#x000A;    <span class="ruby-ivar">@autoclose</span> = <span class="ruby-keyword">false</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-comment"># Deprecated use of filename</span>&#x000A;    <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-string">&quot;Calling XZ::StreamReader.new with a filename is deprecated, use XZ::StreamReader.open instead.&quot;</span>&#x000A;&#x000A;    <span class="ruby-ivar">@autoclose</span> = <span class="ruby-keyword">true</span>&#x000A;    <span class="ruby-keyword">super</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">delegate</span>, <span class="ruby-string">&quot;rb&quot;</span>))&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># Flag for calling #finish</span>&#x000A;  <span class="ruby-ivar">@finish</span> = <span class="ruby-keyword">false</span>&#x000A;&#x000A;  <span class="ruby-identifier">opts</span> = {}&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-comment"># New API</span>&#x000A;    <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:memory_limit</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:flags</span>] <span class="ruby-operator">||=</span> [<span class="ruby-value">:tell_unsupported_check</span>]&#x000A;  <span class="ruby-keyword">else</span> <span class="ruby-comment"># Old API</span>&#x000A;    <span class="ruby-comment"># no arguments may also happen in new API</span>&#x000A;    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>&#x000A;      <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-string">&quot;Calling XZ::StreamReader.new with explicit arguments is deprecated, use an options hash instead.&quot;</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:memory_limit</span>] = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:flags</span>] = <span class="ruby-identifier">args</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">||</span> [<span class="ruby-value">:tell_unsupported_check</span>]&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Invalid memory limit set!&quot;</span>) <span class="ruby-keyword">unless</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">UINT64_MAX</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opts</span>[<span class="ruby-value">:memory_limit</span>])&#x000A;  <span class="ruby-identifier">opts</span>[<span class="ruby-value">:flags</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">flag</span><span class="ruby-operator">|</span>&#x000A;    <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unknown flag #{flag}!&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:tell_no_check</span>, <span class="ruby-value">:tell_unsupported_check</span>, <span class="ruby-value">:tell_any_check</span>, <span class="ruby-value">:concatenated</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">flag</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-ivar">@memory_limit</span> = <span class="ruby-identifier">opts</span>[<span class="ruby-value">:memory_limit</span>]&#x000A;  <span class="ruby-ivar">@flags</span>        = <span class="ruby-identifier">opts</span>[<span class="ruby-value">:flags</span>]&#x000A;&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_stream_decoder</span>(<span class="ruby-ivar">@lzma_stream</span>,&#x000A;                                        <span class="ruby-ivar">@memory_limit</span>,&#x000A;                                        <span class="ruby-ivar">@flags</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">val</span>, <span class="ruby-identifier">flag</span><span class="ruby-operator">|</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">|</span> <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-value">:&quot;LZMA_#{flag.to_s.upcase}&quot;</span>)})&#x000A;  <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-ivar">@input_buffer_p</span> = <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">MemoryPointer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">CHUNK_SIZE</span>)&#x000A;&#x000A;  <span class="ruby-comment"># These two are only used in #unbuffered read.</span>&#x000A;  <span class="ruby-ivar">@__lzma_finished</span> = <span class="ruby-keyword">false</span>&#x000A;  <span class="ruby-ivar">@__lzma_action</span>   = <span class="ruby-keyword">nil</span>&#x000A;&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-keyword">begin</span>&#x000A;      <span class="ruby-keyword">yield</span>(<span class="ruby-keyword">self</span>)&#x000A;    <span class="ruby-keyword">ensure</span>&#x000A;      <span class="ruby-identifier">close</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">closed?</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-open'>
+                <a name='method-c-open'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>open(filename, opts = {}) → reader</div>
+                    <div>open(filename, opts = {}){|reader| …} → obj</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Opens a file from disk and wraps an <a
+                  href="StreamReader.html">XZ::StreamReader</a> instance around the resulting
+                  File IO object. This is a convenience method that is equivalent to calling</p>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-string">&quot;rb&quot;</span>)&#x000A;<span class="ruby-identifier">reader</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">opts</span>)</pre>
+                  
+                  <p>, except that you don’t have to explicitely close the File instance, this
+                  is done automatically when you call <a
+                  href="StreamReader.html#method-i-close">close</a>. Beware the Deprecations
+                  section in this regard.</p>
+                  
+                  <h3 id="method-c-open-label-Parameters">Parameters<span><a href="#method-c-open-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>filename</td><td>
+                  <p>Path to a file on the disk to open. This file should exist and be readable,
+                  otherwise you may get Errno exceptions.</p>
+                  </td></tr><tr><td class='label'>opts</td><td>
+                  <p>Options hash. See <a href="StreamReader.html#method-c-new">::new</a> for a
+                  description of the possible options.</p>
+                  </td></tr><tr><td class='label'>reader</td><td>
+                  <p>Block argument. self of the new instance.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h3 id="method-c-open-label-Return+value">Return value<span><a href="#method-c-open-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The block form returns the block’s last expression, the nonblock form
+                  returns the newly created <a href="StreamReader.html">XZ::StreamReader</a>
+                  instance.</p>
+                  
+                  <h3 id="method-c-open-label-Deprecations">Deprecations<span><a href="#method-c-open-label-Deprecations">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>In the API up to and including version 0.2.1 this method was an alias for
+                  <a href="StreamReader.html#method-c-new">::new</a>. This continues to work
+                  for now, but using it as an alias for <a
+                  href="StreamReader.html#method-c-new">::new</a> is deprecated. The next
+                  major version will only accept a string as a parameter for this method.</p>
+                  
+                  <p><strong>WARNING</strong>: Future versions of ruby-xz will always close the
+                  wrapped IO, regardless of whether you pass in your own IO or use this
+                  convenience method! To prevent that, call the <a
+                  href="StreamReader.html#method-i-finish">finish</a> method.</p>
+                  
+                  <h3 id="method-c-open-label-Examples">Examples<span><a href="#method-c-open-label-Examples">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;myfile.xz&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">read</span>}</pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-open-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-open-source'><span class="ruby-comment"># File lib/xz/stream_reader.rb, line 254</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">filename</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_io</span>)&#x000A;    <span class="ruby-comment"># Deprecated use of IO</span>&#x000A;    <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-string">&quot;Calling XZ::StreamReader.open with an IO is deprecated, use XZ::StreamReader.new instead&quot;</span>&#x000A;    <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>.<span class="ruby-identifier">to_io</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-comment"># Correct use with filename</span>&#x000A;    <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-string">&quot;rb&quot;</span>)&#x000A;&#x000A;    <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;    <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:@autoclose</span>, <span class="ruby-keyword">true</span>) <span class="ruby-comment"># Only needed during deprecation phase (see #close)</span>&#x000A;&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;      <span class="ruby-keyword">begin</span>&#x000A;        <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">obj</span>)&#x000A;      <span class="ruby-keyword">ensure</span>&#x000A;        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">close</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">closed?</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">else</span>&#x000A;      <span class="ruby-identifier">obj</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <h2>Public Instance methods</h2>
+              <div class='method public-instance' id='method-method-i-close'>
+                <a name='method-i-close'></a>
+                <div class='synopsis'>
+                  <span class='name'>close</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Closes this <a href="StreamReader.html">StreamReader</a> instance. Don’t
+                  use it afterwards anymore.</p>
+                  
+                  <h3 id="method-i-close-label-Return+value">Return value<span><a href="#method-i-close-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The total number of bytes decompressed.</p>
+                  
+                  <h3 id="method-i-close-label-Example">Example<span><a href="#method-i-close-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">r</span>.<span class="ruby-identifier">close</span> <span class="ruby-comment">#=&gt; 6468</span></pre>
+                  
+                  <h3 id="method-i-close-label-Remarks">Remarks<span><a href="#method-i-close-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>If you passed an IO to <a href="StreamReader.html#method-c-new">::new</a>,
+                  this method doesn’t close it, so you have to close it yourself.</p>
+                  
+                  <p><strong>WARNING</strong>: The next major release will change this
+                  behaviour. In the future, the wrapped IO object will always be closed. Use
+                  the <a href="StreamReader.html#method-i-finish">finish</a> method for
+                  keeping it open.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-close-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-close-source'><span class="ruby-comment"># File lib/xz/stream_reader.rb, line 297</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">close</span>&#x000A;  <span class="ruby-keyword">super</span>&#x000A;&#x000A;  <span class="ruby-comment"># Close the XZ stream</span>&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_end</span>(<span class="ruby-ivar">@lzma_stream</span>.<span class="ruby-identifier">pointer</span>)&#x000A;  <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@finish</span>&#x000A;    <span class="ruby-comment"># New API: Close the wrapped IO</span>&#x000A;    <span class="ruby-comment">#@delegate_io.close</span>&#x000A;    <span class="ruby-comment"># ↑ uncomment on API break and remove OLD API below. Note that with</span>&#x000A;    <span class="ruby-comment"># the new API that always closes the underlying IO, it is not necessary</span>&#x000A;    <span class="ruby-comment"># to distinguish a self-opened IO from a wrapped preexisting IO.</span>&#x000A;    <span class="ruby-comment"># The variable @autoclose can thus be removed on API break.</span>&#x000A;&#x000A;    <span class="ruby-comment"># Old API:</span>&#x000A;    <span class="ruby-comment">#If we created a File object, close this as well.</span>&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@autoclose</span>&#x000A;      <span class="ruby-comment"># This does not change in the new API, so no deprecation warning.</span>&#x000A;      <span class="ruby-ivar">@delegate_io</span>.<span class="ruby-identifier">close</span>&#x000A;    <span class="ruby-keyword">else</span>&#x000A;      <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-node">&quot;XZ::StreamReader#close will automatically close the wrapped IO in the future. Use #finish to prevent that.&quot;</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># Return the number of bytes written in total.</span>&#x000A;  <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:total_out</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-finish'>
+                <a name='method-i-finish'></a>
+                <div class='synopsis'>
+                  <span class='name'>finish</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>If called in the block form of <a
+                  href="StreamReader.html#method-c-new">::new</a> or <a
+                  href="StreamReader.html#method-c-open">::open</a>, prevents the wrapped IO
+                  from being closed, only the LZMA stream is closed then. If called outside
+                  the block form of <a href="StreamReader.html#method-c-new">::new</a> and
+                  open, behaves like <a href="StreamReader.html#method-i-close">close</a>,
+                  but only closes the underlying LZMA stream. The wrapped IO object is kept
+                  open.</p>
+                  
+                  <h3 id="method-i-finish-label-Return+value">Return value<span><a href="#method-i-finish-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>Returns the wrapped IO object. This allows you to wire the File instance
+                  out of a <a href="StreamReader.html">StreamReader</a> instance that was
+                  created with <a href="StreamReader.html#method-c-open">::open</a>.</p>
+                  
+                  <h3 id="method-i-finish-label-Example">Example<span><a href="#method-i-finish-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-comment"># Nonblock form</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.xz&quot;</span>, <span class="ruby-string">&quot;rb&quot;</span>)&#x000A;<span class="ruby-identifier">r</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>)&#x000A;<span class="ruby-identifier">r</span>.<span class="ruby-identifier">finish</span>&#x000A;<span class="ruby-comment"># f is still open here!</span>&#x000A;&#x000A;<span class="ruby-comment"># Block form</span>&#x000A;<span class="ruby-identifier">str</span> = <span class="ruby-keyword">nil</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.xz&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-identifier">str</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">read</span>&#x000A;  <span class="ruby-identifier">r</span>.<span class="ruby-identifier">finish</span>&#x000A;<span class="ruby-keyword">end</span>&#x000A;<span class="ruby-comment"># f now is an *open* File instance of mode &quot;rb&quot;.</span></pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-finish-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-finish-source'><span class="ruby-comment"># File lib/xz/stream_reader.rb, line 353</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">finish</span>&#x000A;  <span class="ruby-comment"># Do not close wrapped IO object in #close</span>&#x000A;  <span class="ruby-ivar">@finish</span> = <span class="ruby-keyword">true</span>&#x000A;  <span class="ruby-identifier">close</span>&#x000A;&#x000A;  <span class="ruby-ivar">@delegate_io</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-pos'>
+                <a name='method-i-pos'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>pos()  → an_integer</div>
+                    <div>tell() → an_integer</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Total number of output bytes provided to you yet.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-pos-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-pos-source'><span class="ruby-comment"># File lib/xz/stream_reader.rb, line 366</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">pos</span>&#x000A;  <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:total_out</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-rewind'>
+                <a name='method-i-rewind'></a>
+                <div class='synopsis'>
+                  <span class='name'>rewind</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Instrcuts liblzma to immediately stop decompression, rewinds the wrapped IO
+                  object and reinitalizes the <a href="StreamReader.html">StreamReader</a>
+                  instance with the same values passed originally to the <a
+                  href="StreamReader.html#method-c-new">::new</a> method. The wrapped IO
+                  object must support the <code>rewind</code> method for this method to work;
+                  if it doesn’t, this method throws an IOError. After the exception was
+                  thrown, the <a href="StreamReader.html">StreamReader</a> instance is in an
+                  unusable state. You cannot continue using it (don’t call <a
+                  href="StreamReader.html#method-i-close">close</a> on it either); close the
+                  wrapped IO stream and create another instance of this class.</p>
+                  
+                  <h3 id="method-i-rewind-label-Raises">Raises<span><a href="#method-i-rewind-label-Raises">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>IOError</td><td>
+                  <p>The wrapped IO doesn’t support rewinding. Do not use the <a
+                  href="StreamReader.html">StreamReader</a> instance anymore after receiving
+                  this exception.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h2 id="method-i-rewind-label-Remarks">Remarks<span><a href="#method-i-rewind-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h2>
+                  
+                  <p>I don’t really like this method, it uses several dirty tricks to circumvent
+                  both io-like’s and liblzma’s control mechanisms. I only implemented this
+                  because the <code>archive-tar-minitar</code> gem calls this method when
+                  unpacking a TAR archive from a stream.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-rewind-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-rewind-source'><span class="ruby-comment"># File lib/xz/stream_reader.rb, line 396</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">rewind</span>&#x000A;  <span class="ruby-comment"># HACK: Wipe all data from io-like’s internal read buffer.</span>&#x000A;  <span class="ruby-comment"># This heavily relies on io-like’s internal structure.</span>&#x000A;  <span class="ruby-comment"># Be always sure to test this when a new version of</span>&#x000A;  <span class="ruby-comment"># io-like is released!</span>&#x000A;  <span class="ruby-identifier">__io_like__internal_read_buffer</span>.<span class="ruby-identifier">clear</span>&#x000A;&#x000A;  <span class="ruby-comment"># Forcibly close the XZ stream (internally frees it!)</span>&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_end</span>(<span class="ruby-ivar">@lzma_stream</span>.<span class="ruby-identifier">pointer</span>)&#x000A;  <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-comment"># Rewind the wrapped IO</span>&#x000A;  <span class="ruby-keyword">begin</span>&#x000A;    <span class="ruby-ivar">@delegate_io</span>.<span class="ruby-identifier">rewind</span>&#x000A;  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>&#x000A;    <span class="ruby-identifier">raise</span>(<span class="ruby-constant">IOError</span>, <span class="ruby-node">&quot;Delegate IO failed to rewind! Original message: #{e.message}&quot;</span>)&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># Reinitialize everything. Note this doesn’t affect @autofile as it</span>&#x000A;  <span class="ruby-comment"># is already set and stays so (we don’t pass a filename here,</span>&#x000A;  <span class="ruby-comment"># but rather an IO)</span>&#x000A;  <span class="ruby-identifier">initialize</span>(<span class="ruby-ivar">@delegate_io</span>, <span class="ruby-value">:memory_limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@memory_limit</span>, <span class="ruby-value">:flags</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@flags</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

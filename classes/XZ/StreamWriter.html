@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>XZ::StreamWriter</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>class</span>
+          XZ::StreamWriter
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../../files/lib/xz/stream_writer_rb.html">lib/xz/stream_writer.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Superclass:
+          <strong><a target="docwin" href="Stream.html">Stream</a></strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <p>An IO-like writer class for XZ-compressed data, allowing you to write
+            uncompressed data to a stream which ends up as compressed data in a wrapped
+            stream such as a file.</p>
+            
+            <p>A <a href="StreamWriter.html">StreamWriter</a> object actually wraps
+            another IO object it writes the XZ-compressed data to. Here’s an ASCII art
+            image to demonstrate way data flows when using <a
+            href="StreamWriter.html">StreamWriter</a> to write to a compressed file:</p>
+            
+            <pre>        +----------------+  +------------+&#x000A;YOUR  =&gt;|StreamWriter&#39;s  |=&gt;|Wrapped IO&#39;s|=&gt; ACTUAL&#x000A;DATA  =&gt;|internal buffers|=&gt;|buffers     |=&gt;  FILE&#x000A;        +----------------+  +------------+</pre>
+            
+            <p>This graphic also illustrates why it is unlikely to see written data
+            directly appear in the file on your harddisk; the data is cached at least
+            twice before it actually gets written out. Regarding file closing that
+            means that before you can be sure any pending data has been written to the
+            file you have to close both the <a
+            href="StreamWriter.html">StreamWriter</a> instance and then the wrapped IO
+            object (in <strong>exactly</strong> that order, otherwise data loss and
+            unexpected exceptions may occur!).</p>
+            
+            <p>As it might be tedious to always remember the correct closing order, it’s
+            possible to pass a filename to the <a
+            href="StreamWriter.html#method-c-open">::open</a> method. In this case, <a
+            href="StreamWriter.html">StreamWriter</a> will open the file internally and
+            also takes care closing it when you call the <a
+            href="StreamWriter.html#method-i-close">close</a> method.</p>
+            
+            <p><strong>WARNING</strong>: The closing behaviour described above is subject
+            to change in the next major version. In the future, wrapped IO objects are
+            automatically closed always, regardless of whether you passed a filename or
+            an IO instance. This is to sync the API with Ruby’s own Zlib::GzipWriter.
+            To retain the old behaviour, call the <a
+            href="StreamWriter.html#method-i-finish">finish</a> method (which is also
+            in sync with the Zlib API).</p>
+            
+            <p>See the <code>io-like</code> gem’s documentation for the IO-writing methods
+            available for this class (although you’re probably familiar with them
+            through Ruby’s own IO class ;-)).</p>
+            
+            <h2 id="class-XZ::StreamWriter-label-Example">Example<span><a href="#class-XZ::StreamWriter-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h2>
+            
+            <p>Together with the <code>archive-tar-minitar</code> gem, this library can be
+            used to create XZ-compressed TAR archives (these commonly use a file
+            extension of <code>.tar.xz</code> or rarely <code>.txz</code>).</p>
+            
+            <pre class="ruby"><span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamWriter</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.tar.xz&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">txz</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-comment"># This automatically closes txz</span>&#x000A;  <span class="ruby-constant">Archive</span><span class="ruby-operator">::</span><span class="ruby-constant">Tar</span><span class="ruby-operator">::</span><span class="ruby-constant">Minitar</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;foo&quot;</span>, <span class="ruby-identifier">txz</span>)&#x000A;<span class="ruby-keyword">end</span></pre>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Class</h3>
+            <ol>
+              <li><a target="docwin" href="#method-c-new">new</a></li>
+              <li><a target="docwin" href="#method-c-open">open</a></li>
+            </ol>
+            <h3>Public Instance</h3>
+            <ol>
+              <li><a target="docwin" href="#method-i-close">close</a></li>
+              <li><a target="docwin" href="#method-i-finish">finish</a></li>
+              <li><a target="docwin" href="#method-i-pos">pos</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+          </div>
+          <div id='section'>
+            <div id='aliases-list'>
+              <h2>Public Instance Aliases</h2>
+              <div class='name-list'>
+                <table summary='Public Instance Aliases'>
+                  <tr class='top-aligned-row context-row'>
+                    <td class='context-item-name'>tell</td>
+                    <td>-&gt;</td>
+                    <td class='context-item-value'><a target="docwin" href="#method-i-pos">pos</a></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div id='methods'>
+              <h2>Public Class methods</h2>
+              <div class='method public-class' id='method-method-c-new'>
+                <a name='method-c-new'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>new(delegate, compression_level = 6, opts = {}) → writer</div>
+                    <div>new(delegate, compression_level = 6, opts = {}){|writer| …} → obj</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Creates a new <a href="StreamWriter.html">StreamWriter</a> instance. The
+                  block form automatically calls the <a
+                  href="StreamWriter.html#method-i-close">close</a> method when the block has
+                  finished executing.</p>
+                  
+                  <h3 id="method-c-new-label-Parameters">Parameters<span><a href="#method-c-new-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>delegate</td><td>
+                  <p>An IO object to write the data to</p>
+                  </td></tr><tr><td class='label'>compression_level (6)</td><td>
+                  <p>Compression strength. Higher values indicate a smaller result, but longer
+                  compression time. Maximum is 9.</p>
+                  </td></tr><tr><td class='label'>opts</td><td>
+                  <p>Options hash. Possible values are (defaults indicated in parantheses):</p>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>:check (:crc64)</td><td>
+                  <p>The checksum algorithm to use for verifying the data inside the archive.
+                  Possible values are:</p>
+                  <ul><li>
+                  <p>:none</p>
+                  </li><li>
+                  <p>:crc32</p>
+                  </li><li>
+                  <p>:crc64</p>
+                  </li><li>
+                  <p>:sha256</p>
+                  </li></ul>
+                  </td></tr><tr><td class='label'>:extreme (false)</td><td>
+                  <p>Tries to get the last bit out of the compression. This may succeed, but you
+                  can end up with <strong>very</strong> long computation times.</p>
+                  </td></tr></tbody></table>
+                  </td></tr><tr><td class='label'>writer</td><td>
+                  <p>Block argument. self of the new instance.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h3 id="method-c-new-label-Return+value">Return value<span><a href="#method-c-new-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The block form returns the block’s last expression, the nonblock form
+                  returns the newly created instance.</p>
+                  
+                  <h3 id="method-c-new-label-Deprecations">Deprecations<span><a href="#method-c-new-label-Deprecations">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The old API for this method as it was documented in version 0.2.1 still
+                  works, but is deprecated. Please change to the new API as soon as possible.</p>
+                  
+                  <p><strong>WARNING</strong>: The closing behaviour of the block form is
+                  subject to upcoming change. In the next major release the wrapped IO
+                  <strong>will</strong> be automatically closed, unless you call <a
+                  href="StreamWriter.html#method-i-finish">finish</a> to prevent that.</p>
+                  
+                  <h3 id="method-c-new-label-Example">Example<span><a href="#method-c-new-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-comment"># Wrap it around a file</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;data.xz&quot;</span>)&#x000A;<span class="ruby-identifier">w</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamWriter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>)&#x000A;&#x000A;<span class="ruby-comment"># Use SHA256 as the checksum and use a higher compression level</span>&#x000A;<span class="ruby-comment"># than the default (6)</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;data.xz&quot;</span>)&#x000A;<span class="ruby-identifier">w</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamWriter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>, <span class="ruby-value">8</span>, :<span class="ruby-identifier">check</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">sha256</span>)&#x000A;&#x000A;<span class="ruby-comment"># Instruct liblzma to use ultra-really-high compression</span>&#x000A;<span class="ruby-comment"># (may take eternity)</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;data.xz&quot;</span>)&#x000A;<span class="ruby-identifier">w</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamWriter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>, <span class="ruby-value">9</span>, :<span class="ruby-identifier">extreme</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)</pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-new-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-new-source'><span class="ruby-comment"># File lib/xz/stream_writer.rb, line 141</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">delegate</span>, <span class="ruby-identifier">compression_level</span> = <span class="ruby-value">6</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">delegate</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_io</span>)&#x000A;    <span class="ruby-comment"># Correct use with IO</span>&#x000A;    <span class="ruby-keyword">super</span>(<span class="ruby-identifier">delegate</span>.<span class="ruby-identifier">to_io</span>)&#x000A;    <span class="ruby-ivar">@autoclose</span> = <span class="ruby-keyword">false</span>&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-comment"># Deprecated use of filename</span>&#x000A;    <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-string">&quot;Calling XZ::StreamWriter.new with a filename is deprecated, use XZ::StreamWriter.open instead&quot;</span>&#x000A;&#x000A;    <span class="ruby-ivar">@autoclose</span> = <span class="ruby-keyword">true</span>&#x000A;    <span class="ruby-keyword">super</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">delegate</span>, <span class="ruby-string">&quot;wb&quot;</span>))&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># Flag for #finish method</span>&#x000A;  <span class="ruby-ivar">@finish</span> = <span class="ruby-keyword">false</span>&#x000A;&#x000A;  <span class="ruby-identifier">opts</span> = {}&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-comment"># New API</span>&#x000A;    <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:check</span>] <span class="ruby-operator">||=</span> <span class="ruby-value">:crc64</span>&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:extreme</span>] <span class="ruby-operator">||=</span> <span class="ruby-keyword">false</span>&#x000A;  <span class="ruby-keyword">else</span> <span class="ruby-comment"># Old API</span>&#x000A;    <span class="ruby-comment"># no arguments may also happen in new API</span>&#x000A;    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">empty?</span>&#x000A;      <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-string">&quot;Calling XZ::StreamWriter withm ore than 2 explicit arguments is deprecated, use options hash instead.&quot;</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:check</span>] = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">||</span> <span class="ruby-value">:crc64</span>&#x000A;    <span class="ruby-identifier">opts</span>[<span class="ruby-value">:extreme</span>] = <span class="ruby-identifier">args</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># TODO: Check argument validity...</span>&#x000A;&#x000A;  <span class="ruby-comment"># Initialize the internal LZMA stream for encoding</span>&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_easy_encoder</span>(<span class="ruby-ivar">@lzma_stream</span>.<span class="ruby-identifier">pointer</span>,&#x000A;                                <span class="ruby-identifier">compression_level</span> <span class="ruby-operator">|</span> (<span class="ruby-identifier">opts</span>[<span class="ruby-value">:extreme</span>] <span class="ruby-operator">?</span> <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMA_PRESET_EXTREME</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>),&#x000A;                                <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMA_CHECK</span>[<span class="ruby-value">:&quot;lzma_check_#{opts[:check]}&quot;</span>])&#x000A;  <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;    <span class="ruby-keyword">begin</span>&#x000A;      <span class="ruby-keyword">yield</span>(<span class="ruby-keyword">self</span>)&#x000A;    <span class="ruby-keyword">ensure</span>&#x000A;      <span class="ruby-identifier">close</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">closed?</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-class' id='method-method-c-open'>
+                <a name='method-c-open'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>open(filename, compression_level = 6, opts = {}) → writer</div>
+                    <div>open(filename, compression_level = 6, opts = {}){|writer| …} → obj</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Opens a file from disk and wraps an <a
+                  href="StreamWriter.html">XZ::StreamWriter</a> instance around the resulting
+                  file IO object. This is a convenience method mostly equivalent to</p>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-string">&quot;wb&quot;</span>)&#x000A;<span class="ruby-identifier">writer</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamWriter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">compression_level</span>, <span class="ruby-identifier">opts</span>)</pre>
+                  
+                  <p>, except that you don’t have to explicitely close the File instance, this
+                  is done automatically for you when you call <a
+                  href="StreamWriter.html#method-i-close">close</a>. Beware the Deprecations
+                  section in this regard.</p>
+                  
+                  <h3 id="method-c-open-label-Parameters">Parameters<span><a href="#method-c-open-label-Parameters">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  <table class="rdoc-list label-list"><tbody><tr><td class='label'>filename</td><td>
+                  <p>Path to a file on the disk to open. This file should exist and be writable,
+                  otherwise you may get Errno exceptions.</p>
+                  </td></tr><tr><td class='label'>opts</td><td>
+                  <p>Options hash. See <a href="StreamWriter.html#method-c-new">::new</a> for a
+                  description of the possible options.</p>
+                  </td></tr><tr><td class='label'>writer</td><td>
+                  <p>Block argument. self of the new instance.</p>
+                  </td></tr></tbody></table>
+                  
+                  <h3 id="method-c-open-label-Return+value">Return value<span><a href="#method-c-open-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The block form returns the blocks last expression, the nonblock form
+                  returns the newly created <a href="StreamWriter.html">XZ::StreamWriter</a>
+                  instance.</p>
+                  
+                  <h3 id="method-c-open-label-Deprecations">Deprecations<span><a href="#method-c-open-label-Deprecations">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>In the API up to and including version 0.2.1 this method was an alias for
+                  <a href="StreamWriter.html#method-c-new">::new</a>. This continues to work
+                  for now, but using it as an alias for <a
+                  href="StreamWriter.html#method-c-new">::new</a> is deprecated. The next
+                  major version will only accept a string as a parameter for this method.</p>
+                  
+                  <p><strong>WARNING</strong>: Future versions of ruby-xz will always close the
+                  wrapped IO, regardless of whether you pass in your own IO or use this
+                  convenience method, unless you call <a
+                  href="StreamWriter.html#method-i-finish">finish</a> to prevent that.</p>
+                  
+                  <h3 id="method-c-open-label-Example">Example<span><a href="#method-c-open-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">w</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamWriter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;compressed_data.xz&quot;</span>)</pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-open-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-open-source'><span class="ruby-comment"># File lib/xz/stream_writer.rb, line 236</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">compression_level</span> = <span class="ruby-value">6</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">if</span> <span class="ruby-identifier">filename</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_io</span>)&#x000A;    <span class="ruby-comment"># Deprecated use of IO</span>&#x000A;    <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-string">&quot;Calling XZ::StreamWriter.open with an IO is deprecated, use XZ::StreamReader.new instead.&quot;</span>&#x000A;    <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>.<span class="ruby-identifier">to_io</span>, <span class="ruby-identifier">compression_level</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)&#x000A;  <span class="ruby-keyword">else</span>&#x000A;    <span class="ruby-comment"># Correct use with filename</span>&#x000A;    <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-string">&quot;wb&quot;</span>)&#x000A;&#x000A;    <span class="ruby-identifier">obj</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">compression_level</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)&#x000A;    <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:@autoclose</span>, <span class="ruby-keyword">true</span>) <span class="ruby-comment"># Only needed during deprecation phase, see #close</span>&#x000A;&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>&#x000A;      <span class="ruby-keyword">begin</span>&#x000A;        <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">obj</span>)&#x000A;      <span class="ruby-keyword">ensure</span>&#x000A;        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">close</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">closed?</span>&#x000A;      <span class="ruby-keyword">end</span>&#x000A;    <span class="ruby-keyword">else</span>&#x000A;      <span class="ruby-identifier">obj</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <h2>Public Instance methods</h2>
+              <div class='method public-instance' id='method-method-i-close'>
+                <a name='method-i-close'></a>
+                <div class='synopsis'>
+                  <span class='name'>close</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Closes this <a href="StreamWriter.html">StreamWriter</a> instance and
+                  flushes all internal buffers. Don’t use it afterwards anymore.</p>
+                  
+                  <h3 id="method-i-close-label-Return+value">Return value<span><a href="#method-i-close-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>The total number of bytes written, i.e. the size of the compressed data.</p>
+                  
+                  <h3 id="method-i-close-label-Example">Example<span><a href="#method-i-close-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-identifier">w</span>.<span class="ruby-identifier">close</span> <span class="ruby-comment">#=&gt; 424</span></pre>
+                  
+                  <h3 id="method-i-close-label-Remarks">Remarks<span><a href="#method-i-close-label-Remarks">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>If you passed an IO object to <a
+                  href="StreamWriter.html#method-c-new">::new</a>, this method doesn’t close
+                  it, you have to do that yourself.</p>
+                  
+                  <p><strong>WARNING</strong>: The next major release will change this
+                  behaviour. In the future, the wrapped IO object will always be closed. Use
+                  the <a href="StreamWriter.html#method-i-finish">finish</a> method for
+                  keeping it open.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-close-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-close-source'><span class="ruby-comment"># File lib/xz/stream_writer.rb, line 280</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">close</span>&#x000A;  <span class="ruby-keyword">super</span>&#x000A;&#x000A;  <span class="ruby-comment">#1. Close the current block (&quot;file&quot;) (an XZ stream may actually include</span>&#x000A;  <span class="ruby-comment">#   multiple compressed files, which however is not supported by</span>&#x000A;  <span class="ruby-comment">#   this library). For this we have to tell liblzma that</span>&#x000A;  <span class="ruby-comment">#   the next bytes we pass to it are the last bytes (by means of</span>&#x000A;  <span class="ruby-comment">#   the FINISH action). Just that we don’t pass any new input ;-)</span>&#x000A;&#x000A;  <span class="ruby-identifier">output_buffer_p</span>         = <span class="ruby-constant">FFI</span><span class="ruby-operator">::</span><span class="ruby-constant">MemoryPointer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">CHUNK_SIZE</span>)&#x000A;&#x000A;  <span class="ruby-comment"># Get any pending data (LZMA_FINISH causes libzlma to flush its</span>&#x000A;  <span class="ruby-comment"># internal buffers) and write it out to our wrapped IO.</span>&#x000A;  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>&#x000A;    <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:next_out</span>]  = <span class="ruby-identifier">output_buffer_p</span>&#x000A;    <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:avail_out</span>] = <span class="ruby-identifier">output_buffer_p</span>.<span class="ruby-identifier">size</span>&#x000A;&#x000A;    <span class="ruby-identifier">res</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_code</span>(<span class="ruby-ivar">@lzma_stream</span>.<span class="ruby-identifier">pointer</span>, <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMA_ACTION</span>[<span class="ruby-value">:lzma_finish</span>])&#x000A;    <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;    <span class="ruby-ivar">@delegate_io</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">output_buffer_p</span>.<span class="ruby-identifier">read_string</span>(<span class="ruby-identifier">output_buffer_p</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:avail_out</span>]))&#x000A;&#x000A;    <span class="ruby-keyword">break</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:avail_out</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># 2. Close the whole XZ stream.</span>&#x000A;  <span class="ruby-identifier">res</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LibLZMA</span>.<span class="ruby-identifier">lzma_end</span>(<span class="ruby-ivar">@lzma_stream</span>.<span class="ruby-identifier">pointer</span>)&#x000A;  <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">LZMAError</span>.<span class="ruby-identifier">raise_if_necessary</span>(<span class="ruby-identifier">res</span>)&#x000A;&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@finish</span>&#x000A;    <span class="ruby-comment"># New API: Close the wrapped IO</span>&#x000A;    <span class="ruby-comment">#@delegate_io.close</span>&#x000A;&#x000A;    <span class="ruby-comment"># Old API:</span>&#x000A;    <span class="ruby-comment"># 2b. If we wrapped a file automatically, close it.</span>&#x000A;    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@autoclose</span>&#x000A;      <span class="ruby-ivar">@delegate_io</span>.<span class="ruby-identifier">close</span>&#x000A;    <span class="ruby-keyword">else</span>&#x000A;      <span class="ruby-constant">XZ</span>.<span class="ruby-identifier">deprecate</span> <span class="ruby-node">&quot;XZ::StreamWriter#close will automatically close the wrapped IO in the future. Use #finish to prevent that.&quot;</span>&#x000A;    <span class="ruby-keyword">end</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;&#x000A;  <span class="ruby-comment"># 3. Return the number of bytes written in total.</span>&#x000A;  <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:total_out</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-finish'>
+                <a name='method-i-finish'></a>
+                <div class='synopsis'>
+                  <span class='name'>finish</span>
+                  <span class='arguments'>()</span>
+                </div>
+                <div class='description'>
+                  
+                  <p>If called in the block form of <a
+                  href="StreamWriter.html#method-c-new">::new</a> or <a
+                  href="StreamWriter.html#method-c-open">::open</a>, prevents the wrapped IO
+                  from being closed, only the LZMA stream is closed then. If called outside
+                  the block form of <a href="StreamWriter.html#method-c-new">::new</a> and
+                  open, behaves like <a href="StreamWriter.html#method-i-close">close</a>,
+                  but only closes the underlying LZMA stream. The wrapped IO object is kept
+                  open.</p>
+                  
+                  <h3 id="method-i-finish-label-Return+value">Return value<span><a href="#method-i-finish-label-Return+value">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <p>Returns the wrapped IO object. This allows you to wire the File instance
+                  out of a StreamReader instance that was created with <a
+                  href="StreamWriter.html#method-c-open">::open</a>.</p>
+                  
+                  <h3 id="method-i-finish-label-Example">Example<span><a href="#method-i-finish-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h3>
+                  
+                  <pre class="ruby"><span class="ruby-comment"># Nonblock form</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.xz&quot;</span>, <span class="ruby-string">&quot;wb&quot;</span>)&#x000A;<span class="ruby-identifier">w</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">f</span>)&#x000A;<span class="ruby-comment"># ...</span>&#x000A;<span class="ruby-identifier">w</span>.<span class="ruby-identifier">finish</span>&#x000A;<span class="ruby-comment"># f is still open here!</span>&#x000A;&#x000A;<span class="ruby-comment"># Block form</span>&#x000A;<span class="ruby-identifier">f</span> = <span class="ruby-constant">XZ</span><span class="ruby-operator">::</span><span class="ruby-constant">StreamReader</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&quot;foo.xz&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span>&#x000A;  <span class="ruby-comment"># ...</span>&#x000A;  <span class="ruby-identifier">w</span>.<span class="ruby-identifier">finish</span>&#x000A;<span class="ruby-keyword">end</span>&#x000A;<span class="ruby-comment"># f now is an *open* File instance of mode &quot;wb&quot;.</span></pre>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-finish-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-finish-source'><span class="ruby-comment"># File lib/xz/stream_writer.rb, line 353</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">finish</span>&#x000A;  <span class="ruby-comment"># Do not close wrapped IO object in #close</span>&#x000A;  <span class="ruby-ivar">@finish</span> = <span class="ruby-keyword">true</span>&#x000A;  <span class="ruby-identifier">close</span>&#x000A;&#x000A;  <span class="ruby-ivar">@delegate_io</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+              <div class='method public-instance' id='method-method-i-pos'>
+                <a name='method-i-pos'></a>
+                <div class='synopsis'>
+                  <span class='name'>
+                    <div>pos()  → an_integer</div>
+                    <div>tell() → an_integer</div>
+                  </span>
+                </div>
+                <div class='description'>
+                  
+                  <p>Total number of input bytes read so far from what you supplied to any
+                  writer method.</p>
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-i-pos-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-i-pos-source'><span class="ruby-comment"># File lib/xz/stream_writer.rb, line 367</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">pos</span>&#x000A;  <span class="ruby-ivar">@lzma_stream</span>[<span class="ruby-value">:total_in</span>]&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
